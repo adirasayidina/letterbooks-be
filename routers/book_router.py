@@ -29,8 +29,7 @@ def get_books(page: int = Query(1, ge=1), limit: int = Query(10, ge=1, le=100)):
 @router.get("/{isbn}")
 def get_book(isbn: str):
     book = df.loc[df["ISBN"] == isbn]
-    
-    print(book)
+
     if book.empty:
         raise HTTPException(status_code=404, detail="Book not found")
     return book.to_dict(orient="records")[0]
