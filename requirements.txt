@@ -6,3 +6,4 @@ python-dotenv
 httpx[http2]
 bcrypt
 python-jose
+rapidfuzz
