@@ -66,10 +66,10 @@ def fuzzy_search(req: BookSearchRequest):
         row = df.iloc[idx]
         substring_results.append({
             "ISBN": row["ISBN"],
-            "title": row["Book-Title"],
-            "author": row["Book-Author"],
-            "year": row["Year-Of-Publication"],
-            "publisher": row["Publisher"],
+            "Book-Title": row["Book-Title"],
+            "Book-Author": row["Book-Author"],
+            "Year-Of-Publication": row["Year-Of-Publication"],
+            "Publisher": row["Publisher"],
             "Image-URL-L": row["Image-URL-L"],
             "score": 100.0
         })
@@ -82,7 +82,7 @@ def fuzzy_search(req: BookSearchRequest):
     )
 
     fuzzy_results = []
-    seen_titles = set([r["title"] for r in substring_results])
+    seen_titles = set([r["Book-Title"] for r in substring_results])
 
     for match, score, idx in results:
         if score >= req.threshold:
@@ -90,10 +90,11 @@ def fuzzy_search(req: BookSearchRequest):
             if row["Book-Title"] not in seen_titles:
                 fuzzy_results.append({
                     "ISBN": row["ISBN"],
-                    "title": row["Book-Title"],
-                    "author": row["Book-Author"],
-                    "year": row["Year-Of-Publication"],
-                    "publisher": row["Publisher"],
+                    "Book-Title": row["Book-Title"],
+                    "Book-Author": row["Book-Author"],
+                    "Year-Of-Publication": row["Year-Of-Publication"],
+                    "Publisher": row["Publisher"],
+                    "Image-URL-L": row["Image-URL-L"],
                     "score": float(score)
                 })
 
@@ -107,6 +108,6 @@ def fuzzy_search(req: BookSearchRequest):
         "total_results": len(all_results),
         "total_pages": total_pages,
         "page": req.page,
-        "results": paginated
+        "books": paginated
     }
 
