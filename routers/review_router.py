@@ -18,6 +18,22 @@ def add_review(review: ReviewRequest, user=Depends(get_current_user)):
     }).execute()
     return {"message": "Review added", "data": response.data}
 
+from fastapi import HTTPException
+
+@router.put("/edit/{id}")
+def edit_review(id: str, review: ReviewRequest, page: int = 1, limit: int = 10, user=Depends(get_current_user)):
+    existing = supabase.table("TB_REVIEW").select("*").eq("id", id).eq("user_id", user["username"]).execute()
+
+    if not existing.data:
+        raise HTTPException(status_code=404, detail="Review not found or not authorized")
+
+    response = supabase.table("TB_REVIEW").update({
+        "rating": review.rating,
+        "comment": review.comment,
+    }).eq("id", id).eq("user_id", user["username"]).execute()
+
+    return {"message": "Review updated", "data": response.data}
+
 @router.get("/me")
 def get_my_reviews(page: int = 1, limit: int = 10, user=Depends(get_current_user)):
     if page < 1:

@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 class ReviewRequest(BaseModel):
-    book_id: str
+    book_id: Optional[str] = None
     rating: int
     comment: str
 
