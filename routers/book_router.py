@@ -70,6 +70,7 @@ def fuzzy_search(req: BookSearchRequest):
             "author": row["Book-Author"],
             "year": row["Year-Of-Publication"],
             "publisher": row["Publisher"],
+            "Image-URL-L": row["Image-URL-L"],
             "score": 100.0
         })
 

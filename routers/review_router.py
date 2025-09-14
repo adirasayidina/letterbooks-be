@@ -43,7 +43,7 @@ def get_my_reviews(page: int = 1, limit: int = 10, user=Depends(get_current_user
     }
     
 @router.get("/book/{isbn}")
-def get_my_reviews(isbn: str, page: int = 1, limit: int = 10):
+def get_book_reviews(isbn: str, page: int = 1, limit: int = 10):
     if page < 1:
         page = 1
     if limit < 1:
