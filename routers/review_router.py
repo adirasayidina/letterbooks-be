@@ -43,7 +43,7 @@ def get_my_reviews(page: int = 1, limit: int = 10, user=Depends(get_current_user
 
     offset = (page - 1) * limit
 
-    response = supabase.table("TB_REVIEW").select("*", count="exact").eq("user_id", user["username"]).range(offset, offset + limit - 1).execute()
+    response = supabase.table("TB_REVIEW").select("*", count="exact").eq("user_id", user["username"]).order("updated_at", desc=True).range(offset, offset + limit - 1).execute()
 
     count_response = supabase.table("TB_REVIEW").select("id", count="exact").eq("user_id", user["username"]).execute()
         
@@ -67,7 +67,7 @@ def get_book_reviews(isbn: str, page: int = 1, limit: int = 10):
 
     offset = (page - 1) * limit
 
-    response = supabase.table("TB_REVIEW").select("*", count="exact").eq("book_id", isbn).range(offset, offset + limit - 1).execute()
+    response = supabase.table("TB_REVIEW").select("*", count="exact").eq("book_id", isbn).order("updated_at", desc=True).range(offset, offset + limit - 1).execute()
 
     count_response = supabase.table("TB_REVIEW").select("id", count="exact").eq("book_id", isbn).execute()
         

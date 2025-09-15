@@ -18,7 +18,8 @@ def signup(user: SignUpRequest):
         "password": hashed_pw
     }).execute()
 
-    return {"message": "User created successfully"}
+    token = create_access_token({"username": user.username})
+    return {"message": "User created successfully", "access_token": token, "token_type": "bearer"}
 
 @router.post("/login")
 def login(user: LoginRequest):
