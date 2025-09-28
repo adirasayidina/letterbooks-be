@@ -5,14 +5,15 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(title="Letterbooks API")
 
 origins = [
-    "http://localhost:3031",  # your Vite frontend
+    "http://localhost:3031",
     "http://127.0.0.1:3031",
-    "http://localhost:8081",  # if needed
+    "http://localhost:8081",
+    "https://letterbooks.vercel.app",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,   # or ["*"] to allow all
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

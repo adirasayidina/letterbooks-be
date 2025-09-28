@@ -12,7 +12,7 @@ titles = df["Book-Title"].dropna().astype(str).tolist()
 
 json_data = df.to_dict(orient="records")
 
-@router.get("/")
+@router.get("")
 def get_books(page: int = Query(1, ge=1), limit: int = Query(10, ge=1, le=100)):
     start = (page - 1) * limit
     end = start + limit
